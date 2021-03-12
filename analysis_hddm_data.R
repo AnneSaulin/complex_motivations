@@ -32,12 +32,6 @@ model_subj$ID        <- rep(c(1:33), times = 3)
 # make dataframe only containing v-parameter
 model_v <- model_subj[model_subj$param=="v",]
 
-lmer_v_recip <- lmer(mean ~ condition + (1|ID), model_v[model_v$condition!="control" & model_v$condition!="empathy",])
-Anova(lmer_v_recip)
-
-lmer_v_emp <- lmer(mean ~ condition + (1|ID), model_v[model_v$condition!="control" & model_v$condition!="reciprocity",])
-Anova(lmer_v_emp)
-
 # compute relative differences between the multi.motive condition and each single motive condition
 v_rec_index <- (model_v$mean[model_v$condition=="emprecip"]-model_v$mean[model_v$condition=="reciprocity"])/model_v$mean[model_v$condition=="reciprocity"]
 v_emp_index <- (model_v$mean[model_v$condition=="emprecip"]-model_v$mean[model_v$condition=="empathy"])/model_v$mean[model_v$condition=="empathy"]
@@ -56,12 +50,6 @@ sd(v_emp_index)/sqrt(33)
 # make dataframe only containing z-parameter
 model_z <- model_subj[model_subj$param=="z",]
 
-lmer_z_recip <- lmer(mean ~ condition + (1|ID), model_z[model_z$condition!="control" & model_z$condition!="empathy",])
-Anova(lmer_z_recip)
-
-lmer_z_emp <- lmer(mean ~ condition + (1|ID), model_z[model_a$condition!="control" & model_z$condition!="reciprocity",])
-Anova(lmer_z_emp)
-
 # compute relative differences between the multi.motive condition and each single motive condition
 z_rec_index <- (model_z$mean[model_z$condition=="emprecip"]-model_z$mean[model_z$condition=="reciprocity"])/model_z$mean[model_z$condition=="reciprocity"]
 z_emp_index <- (model_z$mean[model_z$condition=="emprecip"]-model_z$mean[model_z$condition=="empathy"])/model_z$mean[model_z$condition=="empathy"]
@@ -79,12 +67,6 @@ sd(z_emp_index)/sqrt(33)
 
 # make dataframe only containing a-parameter
 model_a <- model_subj[model_subj$param=="a",]
-
-lmer_a_recip <- lmer(mean ~ condition + (1|ID), model_a[model_a$condition!="control" & model_a$condition!="empathy",])
-Anova(lmer_a_recip)
-
-lmer_a_emp <- lmer(mean ~ condition + (1|ID), model_a[model_a$condition!="control" & model_a$condition!="reciprocity",])
-Anova(lmer_a_emp)
 
 # compute relative differences between the multi.motive condition and each single motive condition
 a_rec_index <- (model_a$mean[model_a$condition=="emprecip"]-model_a$mean[model_a$condition=="reciprocity"])/model_a$mean[model_a$condition=="reciprocity"]
