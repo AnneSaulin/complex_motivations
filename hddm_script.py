@@ -10,7 +10,7 @@ import pandas as pd
 import pickle
 from kabuki.analyze import gelman_rubin
 
-data = hddm.load_csv('hddm_data.csv', sep = ",")
+data = hddm.load_csv('data_for_hddm.csv', sep = ",")
 data.columns = ['drop', 'subj_idx', 'rt', 'response', 'condition']
 
 # edit data for hddm code
