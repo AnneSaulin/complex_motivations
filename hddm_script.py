@@ -26,10 +26,9 @@ def my_save(self, fname):
 hddm.HDDM.my_save = my_save
 
 # This will tailor an individual hierarchical DDM around your dataset.
-model = hddm.models.HDDMRegressor(data, 'v ~ other_poss_loss',
-                                  depends_on={'v': 'condition', 'z': 'condition', 
-                                              'a': 'condition'},
-                                  bias=True, include='all')
+model= hddm.models.HDDMRegressor(data, 'v ~ other_poss_loss',
+                                  depends_on={'v': 'condition', 'z': 'condition', 'a': 'condition'},
+                                  bias=True, include=['z', 'st', 'sz', 'sv'], p_outlier=0.05)
 # find a good starting point which helps with the convergence.
 model.find_starting_values()
 # start drawing samples and discarding 2000 as burn-in
