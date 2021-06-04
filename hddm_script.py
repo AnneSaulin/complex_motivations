@@ -34,7 +34,7 @@ model.find_starting_values()
 # start drawing samples and discarding 2000 as burn-in
 model.sample(5000, burn=2000, dbname='traces.db', db='pickle')
 hddm.HDDM.my_save(model, 'my_model')
-m_all_zva = pickle.load(open('my_model', 'rb'))
+m_all_vza = pickle.load(open('my_model', 'rb'))
 
 # extract statistics
 model_stats = pd.DataFrame(model.gen_stats())
@@ -44,9 +44,8 @@ model_stats.to_csv('hddm_model_stats.csv')
 models = []
 for i in range(5):
     m = hddm.models.HDDMRegressor(data, 'v ~ other_poss_loss',
-                                  depends_on={'v': 'condition', 'z': 'condition', 
-                                              'a': 'condition'},
-                                  bias=True, include='all')
+                                  depends_on={'v': 'condition', 'z': 'condition', 'a': 'condition'},
+                                  bias=True, include=['z', 'st', 'sz', 'sv'], p_outlier=0.05)
     m.find_starting_values()
     m.sample(7000, burn=5000, dbname='traces.db', db='pickle')
     models.append(m)
