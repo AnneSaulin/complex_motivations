@@ -98,3 +98,18 @@ lm_hypotheses <- lm(rec_index ~ emp_dom*param, hypotheses_df)
 summary(lm_hypotheses)
 
 
+# conduct the analogous analysis using the neural betas extracted from bilateral putamen (based on the AAL nomenclature)
+# first read in betas
+# multi-motive vs. reciprocity contrast
+aal_putam_rec <- read.csv("mm_minus_rec_aal_biputam.csv", sep = ";", header = FALSE)
+# empathy vs. reciprocity contrast
+aal_putam_empMINUSrec <- read.csv("emp_minus_rec_aal_biputam.csv", sep = ";",header = FALSE)
+
+# build the dataframe
+empdom_neuro_df <- c(z_rec_index, z_empdom_index) %>%
+  add_column(., putam_betas = c(aal_putam_rec$V1, aal_putam_rec$V1))%>%
+  add_column(., index = rep(c("enhancement", "dominance"), each = 33))
+
+# run model
+lm_empdom_neuro_test <- lm(scale(rec_index) ~index*scale(putam_betas), empdom_neuro_df)
+summary(lm_empdom_neuro_test)
