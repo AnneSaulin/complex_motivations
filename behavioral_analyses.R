@@ -16,6 +16,8 @@ library(quickpsy)
 induction                     <- read.csv("induction.csv", header = TRUE, sep = ";")
 induction_prosocial_decisions <- read.csv("induction_prosocial_decisions.csv")
 
+traits_prosocial_decisions    <- read.csv("prosocial_decisions_sepcific_traits.csv", header = TRUE)
+
 prosocial_decisions           <- read.csv("prosocial_decisions.csv")
 prosocial_decisions_absolute  <- read.csv("prosocial_decisions_absolute.csv")
 prosocial_rts_per_condition   <- read.csv("prosocial_rts_per_condition.csv")
@@ -46,6 +48,10 @@ Anova(lmer_rating_single)
 # effect of rating on prosocial decisions in the single motive conditions?
 lmer_rating_prosoc_single      <- lmer(prosoc_decis ~ rating*condition + (1|subjectID),ind_pros_single)
 Anova(lmer_rating_prosoc_single)
+
+# specificity of induction for the motive conditions regarding empathy and reciprocity?
+lmer_trait_motive_conds <- lmer(scale(prosocial_decisions) ~ trait_measure_value*trait_measure_type*condition + (1|ID) , reb_big_reg_4conds[reb_big_reg_4conds$condition!="baseline",])
+Anova(lmer_trait_motive_conds)
 
 ######################################################################################################
 ################ frequency of prosocial decisions ####################################################
